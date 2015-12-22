@@ -15,5 +15,10 @@ A Todo app as a basic starter template for __Meteor - React__ using __Material-u
 * AppBar Collapses for mobile view
 * Central store for menu-items
 
+## Installation
+* `git clone git@bitbucket.org:eleventy/reacttodo.git`
+* `cd reacttodo`
+* `meteor`
+
 ## Based on / thanks to
 * [TopShop template](https://github.com/codterpin/top-shop)

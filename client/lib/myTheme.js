@@ -6,15 +6,15 @@ myTheme = {
   spacing: Spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: "#E64A19",
+    primary1Color: Colors.blueGrey600,
     primary2Color: Colors.cyan700,
     primary3Color: Colors.lightBlack,
-    accent1Color: '#CDDC39',
+    accent1Color: Colors.red300,
     accent2Color: Colors.grey100,
     accent3Color: Colors.grey500,
     textColor: Colors.darkBlack,
     alternateTextColor: Colors.white,
-    canvasColor: Colors.white,
+    canvasColor: Colors.grey100,
     borderColor: Colors.grey300,
     disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3)
   }

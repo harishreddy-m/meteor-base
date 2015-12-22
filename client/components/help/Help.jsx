@@ -9,17 +9,17 @@ const {SvgIcons,
 } = MUI.Libs
 const { ThemeManager, LightRawTheme } = Styles
 
-Todos = React.createClass({
+Help = React.createClass({
   render() {
-    return(
-    <div>
+    return (
+      <div>
       <Paper zDepth={2}>
         <br/><br/><br/><br/>
-        <h1>Todos</h1>
-        <p>Here will go all todos</p>
+      <h1>Help</h1>
         <br/><br/><br/>
       </Paper>
     </div>
+
     )
   }
 })

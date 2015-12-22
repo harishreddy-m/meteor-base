@@ -1,13 +1,13 @@
-injectTapEventPlugin()
+// MainLayout
+//  This is the main entrypoint
+//  It renders the main menubar <Header />
+//  and main content according to the router-paths
+//
+const CLIENTWIDTH = 768 // Collapses menubar below x pixels
 
-const {
-  Styles,
-    AppCanvas,
-    AppBar,
-    LeftNav,
-    MenuItem
-} = MUI
-const { ThemeManager } = Styles
+injectTapEventPlugin()
+const { AppCanvas, AppBar, MenuItem } = MUI
+const { ThemeManager } = MUI.Styles
 
 MainLayout = React.createClass({
   childContextTypes: {
@@ -21,42 +21,29 @@ MainLayout = React.createClass({
   },
 
   componentWillMount() {
-    let setTabsState = function() {
-      this.setState({renderTabs: document.body.clientWidth <= 768})
+    let setMobile = function() {
+      this.setState({mobile: document.body.clientWidth <= CLIENTWIDTH})
     }.bind(this)
-    setTabsState()
-    window.onresize = setTabsState
+    setMobile()
+    window.onresize = setMobile
   },
   _onLeftIconButtonTouchTap() {
     this.refs.leftNav.toggle()
   },
   render() {
-    let menuItems = [
-      { type: MenuItem.Types.LINK, payload: FlowRouter.path('shoes'), text: 'Shoes' },
-      { type: MenuItem.Types.LINK, payload: FlowRouter.path('clothes'), text: 'Clothes' },
-      { type: MenuItem.Types.LINK, payload: FlowRouter.path('hats'), text: 'Hats' },
-      { type: MenuItem.Types.SUBHEADER, text: 'Supporters' }
-    ]
-
     return (
       <AppCanvas>
-        <Header mobile={this.state.renderTabs} />
-      <br/><br/><br/><br/>
-        <div className="container">
+        <Header mobile={this.state.mobile} />
+        <div className="container" style={styles.container}>
           <main>{this.props.content}</main>
         </div>
-        <LeftNav ref="leftNav" docked={false} menuItems={menuItems} />
-    </AppCanvas>
-  )
-}
+      </AppCanvas>
+    )
+  }
 })
 
 const styles = {
-  appbar: {
-    position: 'fixed',
-    right: 0,
-    top: 0,
-    width: '100%',
-    zIndex: 4
+  container: {
+    marginTop: 10
   }
 }
