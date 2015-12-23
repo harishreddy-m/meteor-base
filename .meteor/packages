@@ -19,7 +19,22 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
 
+
+## React
 react
 kadira:flow-router
 kadira:react-layout
 izzilab:material-ui
+dapearce:material-icons
+
+# Collections
+aldeed:simple-schema
+aldeed:collection2
+
+
+# Various
+momentjs:moment
+
+# Development
+meteortoys:allthings
+audit-argument-checks
