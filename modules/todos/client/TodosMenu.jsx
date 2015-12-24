@@ -70,7 +70,7 @@ const styles = {
   },
   menuMobile: {
     position: 'fixed',
-    top: '80px',
+    top: '70px',
     margin: '5px'
   }
 }

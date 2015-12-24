@@ -1,23 +1,17 @@
 const { Paper } = MUI
 
-const {SvgIcons,
-  Menu, MenuItem
-} = MUI.Libs
-
-
 Todos.client.cmp.TodosContent = React.createClass({
+  propTypes:{
+    todos: React.PropTypes.array
+  },
   render() {
     return(
-      <div>
-        <Paper zDepth={1} style={styles.container}>
-            <h1>TODOS</h1>
-        </Paper>
-        <Paper zDepth={1} style={styles.container}>
-            <h1>TODOS</h1>
-        </Paper>
-        <Paper zDepth={1} style={styles.container}>
-            <h1>TODOS</h1>
-        </Paper>
+      <div style={styles.container}>
+        {this.props.todos.map((todo)=>{
+          return (
+            <Todos.client.cmp.TodoCard todo={todo} key={todo._id}/>
+          )
+        })}
       </div>
     )
   }
@@ -25,10 +19,8 @@ Todos.client.cmp.TodosContent = React.createClass({
 
 const styles = {
   container:{
-    display:'flex',
-    alignItems:'center',
-    justifyContent: 'center',
-    height: '450px',
-    marginBottom: '10px'
+    display: 'flex; display: -webkit-flex',
+    flexWrap: 'wrap',
+    WebkitFlexWrap: 'wrap'
   }
 }

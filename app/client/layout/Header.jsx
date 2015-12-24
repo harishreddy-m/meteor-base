@@ -43,13 +43,13 @@ App.client.cmp.Header = React.createClass({
             return <Tab label={tab.label} value={tab.path} key={tab.path} style={styles.tab} />
           })}
         </Tabs>
-        :''}
+        :null}
         {this.props.mobile ?
             <IconMenu
               style={styles.menuIcon}
               iconButtonElement={
                 <IconButton >
-                  <SvgIcons.NavigationMoreVert color={myTheme.palette.alternateTextColor}/>
+                  <SvgIcons.NavigationMoreVert color={App.client.myTheme.palette.alternateTextColor}/>
                 </IconButton>
               }
               openDirection="bottom-left"
@@ -60,7 +60,7 @@ App.client.cmp.Header = React.createClass({
                 return <MenuItem index={tab.label} value={tab.path} key={tab.path}>{tab.label}</MenuItem>
               })}
             </IconMenu>
-            :''}
+            :null}
       </AppBar>
     );
   }
