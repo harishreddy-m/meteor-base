@@ -1,49 +1,27 @@
 const { Paper, TextField, RaisedButton, RefreshIndicator} = MUI
-
-
+FormHandler.debug = true
+// FormHandler.ignoreFields = ["_id", "createdAt", "abc"]
 const TodoEditItem = React.createClass({
   propTypes:{
     todo: React.PropTypes.object,
     callback: React.PropTypes.func
   },
-  getInitialState() {
-    return {
-      form: this.props.todo || {}
-    }
-  },
-  handleChange: function(field, e){
-    var nextState = this.state.form
-    nextState[field] = e.target.value
-    this.setState({form:nextState})
-  },
-  saveTodo(){
-    console.log("saveTodo")
-    Meteor.call('Todos.updateTodo', this.state.form)
+  saveTodo(doc){
+    doc._id = this.props.todo ? this.props.todo._id : '',
+    Meteor.call('Todos.updateTodo', doc)
     FlowRouter.go('todos')
   },
 
   render(){
-    let todo = this.props.todo
+    let todo = this.props.todo || {}
     return(
       <Paper zDepth={2} style={styles.paper}>
-        <form>
-          <TextField ref="user" autoFocus={true}
-            floatingLabelText="Name"
-            value={todo.user}
-            onChange={this.handleChange.bind(this,'user')}
-            fullWidth={true}/>
-          <TextField
-            floatingLabelText="Title"
-            value={todo.title}
-            onChange={this.handleChange.bind(this,'title')}
-            fullWidth={true}/>
-          <TextField
-            floatingLabelText="Content"
-            value={todo.content}
-            onChange={this.handleChange.bind(this,'content')}
-            multiLine={true} rows={5} rowsMax={8} fullWidth={true}/>
-          <RaisedButton label="Save" primary={true} onTouchTap={this.saveTodo}/>
-        </form>
+        <Form schema={Todos.both.collections.TodosSchema} id="todoForm" onSubmit={this.saveTodo}>
+                <TextInput name="title" defaultValue={todo.title} layoutStyle="first-half" />
+                <TextInput name="user" defaultValue={todo.user} layoutStyle="first-half" />
+                <TextArea name="content" defaultValue={todo.content} rows={5} />
+                <SubmitButton label="Save" layoutStyle="first-half"/>
+            </Form>
       </Paper>
     )
   }

@@ -4,16 +4,18 @@ Todos.both.collections.TodosSchema = new SimpleSchema({
 	title: {
 		type: String,
 		max: 50,
-		optional: true
+		label: 'Title'
 	},
 	content: {
 		type: String,
 		max: 1000,
-		optional: true
+		label: 'Content'
 	},
   user: {
     type: String,
-    max: 60
+		label: 'Username',
+    max: 60,
+		optional: true
   },
   createdAt: {
 		type: Date,

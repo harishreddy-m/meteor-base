@@ -8,15 +8,19 @@ Meteor.methods({
   },
 
   'Todos.updateTodo'(todo){
-    check(todo,{
+    check(todo, {
       _id: String,
       title: String,
-      user: String,
-      createdAt: Match.Any,
+      user: Match.Optional(String),
+      createdAt: Match.Optional(Match.Any),
       content: String
     })
-    console.log("Updating todo ", todo._id)
-    Todos.both.collections.Todos.
-      update({_id:todo._id},{ $set:{content:todo.content}})
+    if(todo._id === ''){
+      Todos.both.collections.Todos.insert(
+        {user:todo.user, title:todo.title, content:todo.content})
+    } else{
+      Todos.both.collections.Todos.update({_id:todo._id},
+        { $set:{user:todo.user || '', title:todo.title, content:todo.content}})
+    }
   }
 })

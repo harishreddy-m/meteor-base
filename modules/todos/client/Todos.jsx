@@ -47,6 +47,7 @@ Todos.client.cmp.Todos = React.createClass({
 
   createTodo(){
     console.log("createTodo")
+    FlowRouter.go('/todos/create')
   },
   addFive(){
     console.log("add Five")
