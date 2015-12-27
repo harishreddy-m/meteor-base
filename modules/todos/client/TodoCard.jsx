@@ -9,22 +9,12 @@ Todos.client.cmp.TodoCard = React.createClass({
   getInitialState() {
     return {
       showDeleteDialog: false,
-      docDirty: false,
     }
-  },
-
-  saveTodo(){
-    let todo = this.props.todo
-    todo.content = this.refs.todoContent.getValue()
-    if(todo.content){
-      Meteor.call('todoUpdateTodo', todo)
-  }
-  this.setState({docDirty:false})
   },
 
   deleteTodo(event){
     // Called on both client and server to delete todo
-    Meteor.call('todoDeleteTodo', this.props.todo._id)
+    Meteor.call('Todos.deleteTodo', this.props.todo._id)
   },
 
   render() {
@@ -49,10 +39,9 @@ Todos.client.cmp.TodoCard = React.createClass({
                 multiLine={true} rows={2} rowsMax={8} fullWidth={true}
                 onChange={this.setDocDirty}/>
             }
-            {this.props.todo.content}
           </CardText>
           <CardActions style={styles.cardActions}>
-            <RaisedButton label="Save" onTouchTap={this.saveTodo} disabled={!this.state.docDirty} />
+            <RaisedButton label="Edit" linkButton={true} href={"/todos/"+this.props.todo._id} />
             <RaisedButton label="Delete" onTouchTap={this.openDeleteDialog} primary={true}/>
           </CardActions>
         </Card>
@@ -76,10 +65,6 @@ Todos.client.cmp.TodoCard = React.createClass({
   },
   closeDeleteDialog(){
     this.setState({showDeleteDialog: false});
-  },
-  setDocDirty(){
-    // Text has been changed, flag document as docDirty
-    this.setState({docDirty: true})
   }
 })
 

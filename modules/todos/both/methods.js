@@ -1,11 +1,13 @@
+//These methods are called on both client and server
+
 Meteor.methods({
-  todoDeleteTodo(id){
+  'Todos.deleteTodo'(id){
     check(id, String)
     console.log("Deleting todo ", id)
     Todos.both.collections.Todos.remove(id)
   },
 
-  todoUpdateTodo(todo){
+  'Todos.updateTodo'(todo){
     check(todo,{
       _id: String,
       title: String,

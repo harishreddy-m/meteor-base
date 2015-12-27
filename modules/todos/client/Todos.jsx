@@ -4,6 +4,16 @@ Todos.client.cmp.Todos = React.createClass({
   contextTypes :{
     appIsMobile: React.PropTypes.bool.isRequired
   },
+  getInitialState() {
+    return {
+      menuItems:[
+        {name:'Todos', null, icon:null},
+        {name:"MenuDivider"},
+        {name:'Add New Todo', callback:this.createTodo, icon:'mdi mdi-plus'},
+        {name:'+5 Random', callback:this.addFive, icon:'mdi mdi-numeric-5-box-multiple-outline'}
+      ]
+    }
+  },
   getMeteorData() {
     let data = {}
     data.todos = []
@@ -17,13 +27,25 @@ Todos.client.cmp.Todos = React.createClass({
   render() {
     let style = this.context.appIsMobile ? styles.mainMobile : styles.main
     return(
-    <div className="container" style={styles.container}>
-      <div style={style}>
-        <Todos.client.cmp.TodosContent todos={this.data.todos}/>
+      <div className="container" style={styles.container}>
+        <div style={style}>
+          {this.data.todos.map((todo)=>{
+            return (
+              <Todos.client.cmp.TodoCard todo={todo} key={todo._id}/>
+            )
+          })}
+        </div>
+        <Shared.client.cmp.SideMenu menuItems={this.state.menuItems} />
       </div>
-      <Todos.client.cmp.TodosMenu />
-    </div>
     )
+  },
+
+  createTodo(){
+    console.log("createTodo")
+  },
+  addFive(){
+    console.log("add Five")
+    Meteor.call('Todos.addFive')
   }
 })
 
@@ -35,6 +57,9 @@ const styles = {
   main: {
     boxSizing: 'border-box',
     marginLeft: '202px',
+    display: 'flex; display: -webkit-flex',
+    flexWrap: 'wrap',
+    WebkitFlexWrap: 'wrap'
   },
   mainMobile: {
     boxSizing: 'border-box',

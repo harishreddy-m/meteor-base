@@ -6,13 +6,8 @@ FlowRouter.route( '/', {
   }
 });
 
-FlowRouter.route( '/todos', {
-  name: 'todos',
-  action(params) {
-     ReactLayout.render( App.client.cmp.MainLayout,
-       { content: <Todos.client.cmp.Todos/>} )
-  }
-});
+// Routes for Todos are in
+//    /modules/todos/both/router.jsx
 
 FlowRouter.route( '/settings', {
   name: 'settings',
