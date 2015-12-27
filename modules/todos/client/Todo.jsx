@@ -1,52 +1,49 @@
-const { Paper, Card, CardHeader, CardTitle, CardText, CardActions, Avatar,
-        FontIcon, TextField, RaisedButton} = MUI
+const { Paper, TextField, RaisedButton, RefreshIndicator} = MUI
+
 
 const TodoEditItem = React.createClass({
   propTypes:{
     todo: React.PropTypes.object,
-    dataLoading: React.PropTypes.bool
+    callback: React.PropTypes.func
   },
   getInitialState() {
     return {
-      todo: this.props.todo || {}
+      form: this.props.todo || {}
     }
   },
-  componentWillReceiveProps(props){
-    // Parent is sending new data ( our todo)
-    console.log("componentWillReceiveProps", props.todo.user)
-    this.setState({todo:props.todo})
+  handleChange: function(field, e){
+    var nextState = this.state.form
+    nextState[field] = e.target.value
+    this.setState({form:nextState})
   },
-  handleChange(key){
-      return (event)=>{
-      let todo = this.props.todo
-      todo[key] = event.target.value
-      console.log("handleChange", todo.user)
-      this.setState({todo:todo})
-      this.props.callback(this.state.todo)
-    }
+  saveTodo(){
+    console.log("saveTodo")
+    Meteor.call('Todos.updateTodo', this.state.form)
+    FlowRouter.go('todos')
   },
 
   render(){
-    const { dataLoading, todo } = this.state
-    if(dataLoading) return (<h1>Loading</h1>)
+    let todo = this.props.todo
     return(
       <Paper zDepth={2} style={styles.paper}>
-        <TextField
-          floatingLabelText="Name"
-          value={todo.user}
-          onChange={this.handleChange('user')}
-          fullWidth={true}/>
-        <TextField
-          floatingLabelText="Title"
-          value={todo.title}
-          onChange={this.handleChange('title')}
-          fullWidth={true}/>
-        <TextField
-          floatingLabelText="Content"
-          value={todo.content}
-          onChange={this.handleChange('content')}
-          multiLine={true} rows={5} rowsMax={8} fullWidth={true}/>
-
+        <form>
+          <TextField ref="user" autoFocus={true}
+            floatingLabelText="Name"
+            value={todo.user}
+            onChange={this.handleChange.bind(this,'user')}
+            fullWidth={true}/>
+          <TextField
+            floatingLabelText="Title"
+            value={todo.title}
+            onChange={this.handleChange.bind(this,'title')}
+            fullWidth={true}/>
+          <TextField
+            floatingLabelText="Content"
+            value={todo.content}
+            onChange={this.handleChange.bind(this,'content')}
+            multiLine={true} rows={5} rowsMax={8} fullWidth={true}/>
+          <RaisedButton label="Save" primary={true} onTouchTap={this.saveTodo}/>
+        </form>
       </Paper>
     )
   }
@@ -63,7 +60,6 @@ Todos.client.cmp.Todo = React.createClass({
       menuItems:[
         {name:'All Todos', callback:this.goTodos, icon:'mdi mdi-chevron-left'},
         {name:"MenuDivider"},
-        {name:'Save Todo', callback:this.saveTodo, disabled:this.getDisabled, icon:'mdi mdi-content-save'},
         {name:'Delete Todo', callback:this.deleteTodo, icon:'mdi mdi-delete'}
       ]
     }
@@ -76,20 +72,15 @@ Todos.client.cmp.Todo = React.createClass({
       todo: Todos.both.collections.Todos.findOne(this.props.id)
     }
   },
-  callback(todo){
-    //TODO  triggert CB met oude data
-    this.data.todo = todo
-    this.setState({disableSave:false})
-    console.log("callback", this.data.todo.user)
-
-  },
   render() {
     const style = this.context.appIsMobile ? styles.mainMobile : styles.main
-
+    const dataLoading = this.data.dataLoading
     return(
       <div className="container" style={styles.container}>
         <div style={style}>
-          <TodoEditItem todo={this.data.todo} dataLoading={this.data.dataLoading} callback={this.callback}/>
+        {dataLoading
+          ? <RefreshIndicator size={40} left={80} top={5} status="loading" />
+          : <TodoEditItem  todo={this.data.todo}/>}
         </div>
         <Shared.client.cmp.SideMenu menuItems={this.state.menuItems} />
       </div>
@@ -101,16 +92,9 @@ Todos.client.cmp.Todo = React.createClass({
     console.log("goTodos")
     FlowRouter.go('todos')
   },
-  saveTodo(){
-    console.log("Save Todo", this.data.todo)
-  },
   deleteTodo(){
     console.log("Delete todo ", this.data.todo._id)
   },
-  getDisabled() {
-    // Return true:false to disable saveButton in SideMenu
-    return this.state.disableSave
-  }
 })
 
 

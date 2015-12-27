@@ -1,3 +1,4 @@
+const { RefreshIndicator} = MUI
 
 Todos.client.cmp.Todos = React.createClass({
   mixins: [ReactMeteorData],
@@ -17,23 +18,27 @@ Todos.client.cmp.Todos = React.createClass({
   getMeteorData() {
     let data = {}
     data.todos = []
-    let handle = Meteor.subscribe("todos")
-    if(handle.ready()){
-      data.todos = Todos.both.collections.Todos.find().fetch()
+    const handle = Meteor.subscribe("todos")
+    return {
+      dataLoading: ! handle.ready(),
+      todos: Todos.both.collections.Todos.find().fetch()
     }
-    return data
   },
 
   render() {
+    const dataLoading = this.data.dataLoading
     let style = this.context.appIsMobile ? styles.mainMobile : styles.main
     return(
       <div className="container" style={styles.container}>
         <div style={style}>
-          {this.data.todos.map((todo)=>{
-            return (
-              <Todos.client.cmp.TodoCard todo={todo} key={todo._id}/>
-            )
-          })}
+          {dataLoading
+            ? <RefreshIndicator size={40} left={600} top={300} status="loading" />
+            :this.data.todos.map((todo)=>{
+              return (
+                <Todos.client.cmp.TodoCard todo={todo} key={todo._id}/>
+                )
+            })
+          }
         </div>
         <Shared.client.cmp.SideMenu menuItems={this.state.menuItems} />
       </div>

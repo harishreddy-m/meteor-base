@@ -28,10 +28,9 @@ dapearce:material-icons
 aldeed:simple-schema
 aldeed:collection2
 
-# Forms
+#Forms
 coniel:react-form-handler
 coniel:react-form-handler-material-ui
-
 
 # Various
 momentjs:moment

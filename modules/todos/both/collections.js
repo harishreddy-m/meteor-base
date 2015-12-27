@@ -3,11 +3,13 @@ Todos.both.collections.Todos = new Mongo.Collection('todos')
 Todos.both.collections.TodosSchema = new SimpleSchema({
 	title: {
 		type: String,
-		max: 80
+		max: 50,
+		optional: true
 	},
 	content: {
 		type: String,
-		max: 1000
+		max: 1000,
+		optional: true
 	},
   user: {
     type: String,
@@ -18,6 +20,7 @@ Todos.both.collections.TodosSchema = new SimpleSchema({
 		autoValue: function() {
 			return new Date()
 		},
+		optional:true
 	}
 })
 
