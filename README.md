@@ -29,7 +29,7 @@ A Todo app as a basic starter template for __Meteor - React__ using __Material-u
 
 ## Installation
 * `git clone git@bitbucket.org:eleventy/mui-starter.git`
-* `cd reacttodo`
+* `cd mui-starter`
 * `meteor`
 
 ## Based on / Thanks to
