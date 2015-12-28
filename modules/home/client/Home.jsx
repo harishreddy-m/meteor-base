@@ -12,7 +12,7 @@ Home.client.cmp.Home = React.createClass({
       <Paper zDepth={2} style={styles.paper}>
         <div>
           <br/><br/><br/><br/>
-          <h1>Home</h1>
+          <h1>MUI Starter App</h1>
           <br/><br/><br/>
           <p>Basic <b>Meteor - React - Material-UI</b> boilerplate</p>
           <p>Check the <b>Todos</b>-tab for a menu example</p>

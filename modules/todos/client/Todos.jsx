@@ -7,11 +7,15 @@ Todos.client.cmp.Todos = React.createClass({
   },
   getInitialState() {
     return {
+      todoView: 'list',
       menuItems:[
         {name:'Todos', null, icon:null},
         {name:"MenuDivider"},
         {name:'Add New Todo', callback:this.createTodo, icon:'mdi mdi-plus'},
-        {name:'+5 Random', callback:this.addFive, icon:'mdi mdi-numeric-5-box-multiple-outline'}
+        {name:'+5 Random', callback:this.addFive, icon:'mdi mdi-numeric-5-box-multiple-outline'},
+        {name:"MenuDivider"},
+        {name:'Card View', callback:this.setViewCard, icon:'mdi mdi-view-grid'},
+        {name:'List View', callback:this.setViewList, icon:'mdi mdi-view-list'},
       ]
     }
   },
@@ -28,17 +32,19 @@ Todos.client.cmp.Todos = React.createClass({
   render() {
     const dataLoading = this.data.dataLoading
     let style = this.context.appIsMobile ? styles.mainMobile : styles.main
+    switch(this.state.todoView){
+      case 'card':
+        todoView = <Todos.client.cmp.TodosCards todos={this.data.todos} />
+        break
+      case 'list':
+        todoView = <Todos.client.cmp.TodosList todos={this.data.todos} />
+    }
     return(
       <div className="container" style={styles.container}>
         <div style={style}>
           {dataLoading
             ? <RefreshIndicator size={40} left={600} top={300} status="loading" />
-            :this.data.todos.map((todo)=>{
-              return (
-                <Todos.client.cmp.TodoCard todo={todo} key={todo._id}/>
-                )
-            })
-          }
+          : todoView}
         </div>
         <Shared.client.cmp.SideMenu menuItems={this.state.menuItems} />
       </div>
@@ -52,6 +58,14 @@ Todos.client.cmp.Todos = React.createClass({
   addFive(){
     console.log("add Five")
     Meteor.call('Todos.addFive')
+  },
+  setViewCard(){
+    //Fill the view with cards
+    this.setState({todoView:'card'})
+  },
+  setViewList(){
+    //Fill the view with lists
+    this.setState({todoView:'list'})
   }
 })
 
@@ -63,15 +77,15 @@ const styles = {
   main: {
     boxSizing: 'border-box',
     marginLeft: '202px',
-    display: 'flex; display: -webkit-flex',
-    flexWrap: 'wrap',
-    WebkitFlexWrap: 'wrap'
+    marginTop:'20px',
+    marginRight: '20px',
   },
   mainMobile: {
     boxSizing: 'border-box',
     marginLeft: '20px',
     marginTop: '40px',
-    position: 'absolute',
+    marginRight: '20px',
+    // position: 'absolute',
     zIndex: '-10'
   }
 }

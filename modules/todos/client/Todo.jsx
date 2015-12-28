@@ -1,12 +1,10 @@
-const { Paper, TextField, RaisedButton, RefreshIndicator} = MUI
-FormHandler.debug = true
-// FormHandler.ignoreFields = ["_id", "createdAt", "abc"]
-const TodoEditItem = React.createClass({
+const { Paper, TextField, RefreshIndicator} = MUI
+const TodoEditForm = React.createClass({
   propTypes:{
-    todo: React.PropTypes.object,
-    callback: React.PropTypes.func
+    todo: React.PropTypes.object
   },
   saveTodo(doc){
+    // Add _id to the docfield ( empty for create)
     doc._id = this.props.todo ? this.props.todo._id : '',
     Meteor.call('Todos.updateTodo', doc)
     FlowRouter.go('todos')
@@ -32,9 +30,11 @@ const TodoEditItem = React.createClass({
 
 Todos.client.cmp.Todo = React.createClass({
   mixins: [ReactMeteorData],
+  contextTypes :{
+    appIsMobile: React.PropTypes.bool.isRequired
+  },
   getInitialState() {
     return {
-      disableSave: true,
       menuItems:[
         {name:'All Todos', callback:this.goTodos, icon:'mdi mdi-chevron-left'},
         {name:"MenuDivider"},
@@ -57,8 +57,8 @@ Todos.client.cmp.Todo = React.createClass({
       <div className="container" style={styles.container}>
         <div style={style}>
         {dataLoading
-          ? <RefreshIndicator size={40} left={80} top={5} status="loading" />
-          : <TodoEditItem  todo={this.data.todo}/>}
+          ? <RefreshIndicator size={40} left={200} top={200} status="loading" />
+        : <TodoEditForm  todo={this.data.todo}/>}
         </div>
         <Shared.client.cmp.SideMenu menuItems={this.state.menuItems} />
       </div>
@@ -67,11 +67,11 @@ Todos.client.cmp.Todo = React.createClass({
 
   // sideMenuItems callbacks
   goTodos(){
-    console.log("goTodos")
     FlowRouter.go('todos')
   },
   deleteTodo(){
-    console.log("Delete todo ", this.data.todo._id)
+    Meteor.call('Todos.deleteTodo', this.data.todo._id)
+    FlowRouter.go('todos')
   },
 })
 
@@ -87,14 +87,14 @@ const styles = {
   },
   mainMobile: {
     boxSizing: 'border-box',
-    marginLeft: '20px',
-    marginTop: '40px',
+    marginLeft: '10px',
+    marginTop: '20px',
     position: 'absolute',
     zIndex: '-10'
   },
   paper:{
     margin: '20px',
-    padding: '50px',
+    padding: '20px',
     flexDirection:'row',
     marginBottom: '10px'
   }

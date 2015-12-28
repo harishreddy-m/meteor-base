@@ -1,8 +1,8 @@
-# Meteor React Material Todo Starter App
+# MUI Starter App
 ----------------------------------------
 
 A Todo app as a basic starter template for __Meteor - React__ using __Material-ui__
-> Early beta, not really ready for production, but use it for ideas and concepts
+> Beta, not really ready for production, but use it for ideas and concepts
 
 ## Uses
 * [Meteor](https://www.meteor.com/) ( v1.2.1)
@@ -12,13 +12,17 @@ A Todo app as a basic starter template for __Meteor - React__ using __Material-u
 
 ## Includes
 * An AppBar Menu-header using Tabs-items as navigation
-* AppBar Collapses for mobile view
-* AppBar menu-items from array / store
+  * AppBar Collapses for mobile view
+  * AppBar menu-items from array / store
 
-* Todos module with sidemenu, both in desktop-view and collapsed mobile view
+* Todos module with sidemenu
+  * Expanded sidemenu in DesktopView
+  * FloatingActionButton for a collapsed sidemenu in MobileView
+* No CSS, all flexbox
 
 ## Modular design
-Everything is kept in namespaced modules, based on the [Modular Pattern](https://themeteorchef.com/snippets/using-the-module-pattern-with-meteor/) from The Meteor Chef
+* Everything is kept in namespaced modules, based on the [Modular Pattern](https://themeteorchef.com/snippets/using-the-module-pattern-with-meteor/) from The Meteor Chef.
+* Modular folder structure: all modules are selfcontained in their respective folders.
 
 ## Installation
 * `git clone git@bitbucket.org:eleventy/reacttodo.git`

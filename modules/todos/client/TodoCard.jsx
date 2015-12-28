@@ -1,8 +1,25 @@
 const { Card, CardHeader, CardTitle, CardText, CardActions,
-  Avatar, FontIcon, RaisedButton, Dialog, FlatButton,
+  Avatar, FontIcon, RaisedButton, Dialog,
   TextField} = MUI
 
-Todos.client.cmp.TodoCard = React.createClass({
+Todos.client.cmp.TodosCards = React.createClass({
+  propTypes:{
+    todos: React.PropTypes.array
+  },
+  render(){
+    return(
+      <div style={styles.main}>
+        {this.props.todos.map((todo)=>{
+          return (
+            <TodoCard todo={todo} key={todo._id}/>
+            )
+        })}
+      </div>
+    )
+  }
+})
+
+const TodoCard = React.createClass({
   propTypes:{
     todo: React.PropTypes.object
   },
@@ -69,9 +86,19 @@ Todos.client.cmp.TodoCard = React.createClass({
 })
 
 const styles = {
+  main: {
+    display: 'flex; display: -webkit-flex',
+    flexFlow: 'row wrap',
+    WebkitFlexFlow: 'row wrap',
+    justifyContent: 'flex-start',
+    WebkitJustifyContent: 'flex-start',
+  },
   card:{
-    width: '300px',
-    margin: '5px',
+    flex: '1 1 auto',
+    WebkitFlex: '1 1 auto',
+    height: '300px',
+    maxWidth: '500px',
+    margin: '10px'
   },
   cardActions:{
     display:'flex; display: -webkit-flex',

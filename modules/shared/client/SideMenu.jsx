@@ -25,15 +25,17 @@ Shared.client.cmp.SideMenu = React.createClass({
     if(!this.context.appIsMobile){
       return(
         <MenuBar menuItems={this.props.menuItems}/>
-      )} else {
-        return(
-        <div>
-          <FloatingActionButton style={styles.menuMobile} onClick={this.toggleMenu}>
-            <FontIcon className="mdi mdi-menu" />
-          </FloatingActionButton>
-          {this.state.menuBar ? <MenuBar menuItems={this.props.menuItems} closeMenu={this.toggleMenu} /> : null}
-        </div>
-      )}
+    )} else {
+      return(
+      <div>
+        {this.state.menuBar
+          ? <MenuBar menuItems={this.props.menuItems} closeMenu={this.toggleMenu} />
+          : <FloatingActionButton style={styles.menuMobile} onClick={this.toggleMenu}>
+              <FontIcon className="mdi mdi-menu" />
+            </FloatingActionButton>
+          }
+      </div>
+    )}
   }
 })
 
@@ -80,7 +82,7 @@ const MenuBar = React.createClass({
 const styles = {
   menu: {
     position: 'fixed',
-    top: '70px',
+    top: '80px',
     width: '192px',
     margin: '5px'
   },
