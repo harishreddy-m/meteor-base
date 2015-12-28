@@ -4,6 +4,9 @@
 A Todo app as a basic starter template for __Meteor - React__ using __Material-ui__
 > Beta, not really ready for production, but use it for ideas and concepts
 
+## Demo
+[MUI-Starter](http://mui-starter.meteor.com/)
+
 ## Uses
 * [Meteor](https://www.meteor.com/) ( v1.2.1)
 * [Material-UI](http://www.material-ui.com/)
