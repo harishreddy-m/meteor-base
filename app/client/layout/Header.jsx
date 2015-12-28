@@ -31,7 +31,7 @@ App.client.cmp.Header = React.createClass({
 
   render() {
     return (
-      <AppBar title='TodoApp' style={styles.appBar}
+      <AppBar title='MUI Starter' style={styles.appBar}
         zDepth={3}
         iconElementLeft={
           <IconButton onTouchTap={this.menuChange}>

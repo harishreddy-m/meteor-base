@@ -25,7 +25,7 @@ A Todo app as a basic starter template for __Meteor - React__ using __Material-u
 * Modular folder structure: all modules are selfcontained in their respective folders.
 
 ## Installation
-* `git clone git@bitbucket.org:eleventy/reacttodo.git`
+* `git clone git@bitbucket.org:eleventy/mui-starter.git`
 * `cd reacttodo`
 * `meteor`
 
