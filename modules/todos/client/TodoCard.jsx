@@ -35,10 +35,21 @@ const TodoCard = React.createClass({
   },
 
   render() {
-    let deleteActions = [
+    const deleteActionsO = [
       { text: 'Cancel' },
-      { text: 'Delete', onTouchTap: this.deleteTodo, ref:'delete' }
-    ];
+      { text: 'Delete', onTouchTap: this.deleteTodo, ref:'delete', keyboardFocused:{true} }
+    ]
+    const deleteActions = [
+      <RaisedButton
+        label="Cancel"
+        secondary={true}
+        onTouchTap={this.closeDeleteDialog} />,
+      <RaisedButton
+        label="Delete"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.deleteTodo} />,
+    ]
 
     return(
       <div>
@@ -67,7 +78,6 @@ const TodoCard = React.createClass({
           ref="dialogDelete"
           title="Delete Todo"
           actions={deleteActions}
-          actionFocus="delete"
           open={this.state.showDeleteDialog}
           onRequestClose={this.closeDeleteDialog}>
           <p><b>Author:</b>{this.props.todo.user}</p>

@@ -1,4 +1,4 @@
-const {Paper, List, ListItem, ListDivider} = MUI
+const {Paper, List, ListItem, Divider} = MUI
 
 
 Todos.client.cmp.TodosList = React.createClass({
@@ -18,7 +18,7 @@ Todos.client.cmp.TodosList = React.createClass({
             {this.props.todos.map(todo => {
               return (
                 React.Children.toArray([
-                  <ListDivider />,
+                  <Divider />,
                     <ListItem key={todo.title}
                       value={todo._id} primaryText={todo.title}
                       secondaryText={todo.user}
