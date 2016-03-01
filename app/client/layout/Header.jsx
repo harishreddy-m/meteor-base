@@ -4,8 +4,8 @@ let menuItems = [
   {  label: 'Help', path: 'help' }
 ];
 
-const { AppBar, Tabs, Tab, IconMenu, IconButton} = MUI
-const {   MenuItem, MenuDivider, SvgIcons } = MUI.Libs
+const { AppBar, Tabs, Tab, IconMenu, IconButton, Divider} = MUI
+const {   MenuItem, SvgIcons } = MUI.Libs
 
 App.client.cmp.Header = React.createClass({
   propTypes:{
@@ -55,7 +55,7 @@ App.client.cmp.Header = React.createClass({
               openDirection="bottom-left"
               onItemTouchTap = {this.menuChange}>
                <MenuItem index='home' value='home' key='home' leftIcon={<SvgIcons.ActionHome />}>Home</MenuItem>
-                <MenuDivider />
+               <Divider />
               { menuItems.map((tab)=>{
                 return <MenuItem index={tab.label} value={tab.path} key={tab.path}>{tab.label}</MenuItem>
               })}
