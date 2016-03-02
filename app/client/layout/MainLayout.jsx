@@ -34,18 +34,30 @@ App.client.cmp.MainLayout = React.createClass({
   },
   render() {
     return (
-      <AppCanvas>
+      <div style={styles.site}>
         <App.client.cmp.Header mobile={this.state.appIsMobile} />
-        <div className="container" style={styles.container}>
-          <main>{this.props.content}</main>
+        <div  style={styles.content}>
+          <div>{this.props.content}</div>
         </div>
-      </AppCanvas>
+        <div style={styles.footer}>
+          <App.client.cmp.Footer mobile={this.state.appIsMobile} />
+        </div>
+      </div>
     )
   }
 })
 
 const styles = {
-  container: {
-    marginTop: 10
+  site :{
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh'
+  },
+  content:{
+    flex: '1 0 auto'
+  },
+  footer:{
+    flex: 'none',
+    backgroundColor: '#EEF'
   }
 }
